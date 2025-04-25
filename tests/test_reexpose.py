@@ -1,4 +1,4 @@
-from expose import expose, reexpose
+from exposepy import expose, reexpose
 
 # Simulate an external module defining this
 @expose

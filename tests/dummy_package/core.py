@@ -1,4 +1,4 @@
-from expose import expose
+from exposepy import expose
 
 @expose
 def original_func():
