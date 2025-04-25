@@ -1,5 +1,5 @@
 site_name: expose
-repo_url: https://github.com/El3ssar/expose
+repo_url: https://github.com/El3ssar/exposepy
 site_url: https://El3ssar.github.io/exposepy/
 theme:
   name: readthedocs
