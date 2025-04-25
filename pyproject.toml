@@ -4,12 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "exposepy"
+dynamic = ["version"]
 description = "Minimalist decorator for exposing public APIs"
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
 authors = [
-  { name="Your Name", email="you@example.com" }
+  { name="Daniel Estevez", email="kemossabee@gmail.com" }
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
