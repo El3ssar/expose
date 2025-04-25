@@ -4,7 +4,6 @@ build-backend = "hatchling.build"
 
 [project]
 name = "exposepy"
-version = "0.1.0"
 description = "Minimalist decorator for exposing public APIs"
 readme = "README.md"
 requires-python = ">=3.8"
