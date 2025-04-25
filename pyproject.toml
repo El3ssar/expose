@@ -33,3 +33,11 @@ packages = ["src/expose"]
 [tool.hatch.version]
 source = "vcs"
 
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest>=8.1",
+]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest tests"
+
