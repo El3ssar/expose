@@ -12,7 +12,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Home";
+        var mkdocs_page_name = "exposepy";
         var mkdocs_page_input_path = "index.md";
         var mkdocs_page_url = "/exposepy/";
       </script>
@@ -40,7 +40,35 @@
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="#">Home</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">exposepy</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#installation">📦 Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#why-use-exposepy">🧠 Why use exposepy?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#basic-usage">🚀 Basic Usage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#result">Result:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cross-module-re-export">🔁 Cross-module Re-Export</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reference">📚 Reference</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#expose">@expose</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#reexpose">reexpose</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#versioning">🛠 Versioning</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#contributing">🤝 Contributing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#links">🔗 Links</a>
+    </li>
+    </ul>
                 </li>
               </ul>
       </div>
@@ -57,7 +85,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Home</li>
+      <li class="breadcrumb-item active">exposepy</li>
     <li class="wy-breadcrumbs-aside">
           <a href="https://github.com/El3ssar/exposepy/edit/master/docs/index.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
@@ -67,7 +95,86 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                
+                <h1 id="exposepy">exposepy</h1>
+<p><strong>exposepy</strong> is a minimalist Python library that makes your public API explicit, refactor-proof, and automatic.</p>
+<p>No more boilerplate. No more forgotten <code>__all__</code>. Just declare what you want public.</p>
+<hr />
+<h2 id="installation">📦 Installation</h2>
+<pre><code class="language-bash">pip install exposepy
+</code></pre>
+<hr />
+<h2 id="why-use-exposepy">🧠 Why use exposepy?</h2>
+<ul>
+<li>✅ Zero-boilerplate API exposure with <code>@expose</code></li>
+<li>✅ Automatic <code>__all__</code> population</li>
+<li>✅ Cleaner <code>dir()</code> output (shows only public API)</li>
+<li>✅ Cross-module reexports with <code>reexpose()</code></li>
+<li>✅ Supports aliasing: <code>@expose(name="alias")</code></li>
+<li>✅ Refactor-safe and declarative</li>
+</ul>
+<hr />
+<h2 id="basic-usage">🚀 Basic Usage</h2>
+<pre><code class="language-python">from exposepy import expose
+
+@expose
+def foo():
+    return 42
+
+@expose(name=&quot;bar_alias&quot;)
+def bar():
+    return 123
+</code></pre>
+<h3 id="result">Result:</h3>
+<pre><code class="language-python">import mymodule
+print(mymodule.__all__)  # ['foo', 'bar_alias']
+print(dir(mymodule))     # ['foo', 'bar_alias']
+</code></pre>
+<hr />
+<h2 id="cross-module-re-export">🔁 Cross-module Re-Export</h2>
+<pre><code class="language-python"># module_a.py
+from exposepy import expose
+
+@expose
+def internal_tool(): ...
+
+# module_b.py
+from module_a import internal_tool
+from exposepy import reexpose
+
+reexpose(internal_tool, name=&quot;public_tool&quot;)
+</code></pre>
+<p>Now <code>module_b.__all__ == ['public_tool']</code>.</p>
+<hr />
+<h2 id="reference">📚 Reference</h2>
+<h3 id="expose"><code>@expose</code></h3>
+<pre><code class="language-python">@expose
+def symbol(): ...
+</code></pre>
+<p>Optionally rename:</p>
+<pre><code class="language-python">@expose(name=&quot;alias_name&quot;)
+def symbol(): ...
+</code></pre>
+<hr />
+<h3 id="reexpose"><code>reexpose</code></h3>
+<pre><code class="language-python">reexpose(symbol)
+reexpose(symbol, name=&quot;alias&quot;)
+</code></pre>
+<p>Useful to re-export symbols across module boundaries cleanly.</p>
+<hr />
+<h2 id="versioning">🛠 Versioning</h2>
+<p><code>exposepy</code> uses Git-based versioning.<br />
+To see the current version:</p>
+<pre><code class="language-bash">pip show exposepy
+</code></pre>
+<hr />
+<h2 id="contributing">🤝 Contributing</h2>
+<p>See the <a href="https://github.com/El3ssar/exposepy">GitHub repo</a> and the <code>CONTRIBUTING.md</code>.</p>
+<hr />
+<h2 id="links">🔗 Links</h2>
+<ul>
+<li><a href="https://github.com/El3ssar/exposepy">GitHub</a></li>
+<li><a href="https://pypi.org/project/exposepy/">PyPI</a></li>
+</ul>
               
             </div>
           </div><footer>
@@ -115,5 +222,5 @@
 
 <!--
 MkDocs version : 1.6.1
-Build Date UTC : 2025-04-25 09:42:42.992438+00:00
+Build Date UTC : 2025-04-25 10:26:45.203967+00:00
 -->
